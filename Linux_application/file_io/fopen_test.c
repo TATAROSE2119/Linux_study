@@ -13,5 +13,6 @@ int main()
     {
         printf("File opened successfully, a+ can open file that isnot exist \n");
     }
+    
     return 0;
 }
