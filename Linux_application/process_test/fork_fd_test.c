@@ -28,6 +28,7 @@ int main()
     }else
     {
         //父进程
+        sleep(1);
         strcpy(buff,"这是父进程写入的数据\n");
     }
 
