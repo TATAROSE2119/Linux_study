@@ -25,3 +25,11 @@ fork_execve_test: fork_execve_test.c erlou
 	-$(CC) -o $@ $(word 1,$^)
 	-./$@
 	-rm ./$@ ./$(word 2,$^)
+waitpid_test: waitpid_test.c
+	-$(CC) -o $@ $^
+	-./$@
+	-rm ./$@
+pstree_test: pstree_test.c erlou
+	-$(CC) -o $@ $<
+	-./$@
+	-rm ./$@ ./$(word 2,$^)
