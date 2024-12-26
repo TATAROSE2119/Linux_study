@@ -12,3 +12,11 @@ fork_fd_test: fork_fd_test.c
 	-$(CC) -o $@ $^
 	-./$@
 	-rm ./$@
+
+erlou: erlou.c
+	-$(CC) -o $@ $^
+
+execve_test: execve_test.c erlou
+	-$(CC) -o $@ $<
+	-./$@
+	-rm ./$@ ./$(word 2,$^)

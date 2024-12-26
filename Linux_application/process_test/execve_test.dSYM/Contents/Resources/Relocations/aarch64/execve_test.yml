@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/tatarose/Desktop/Linux_study/Linux_application/process_test/execve_test'
+relocations:     []
+...
