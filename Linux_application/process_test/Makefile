@@ -1,4 +1,6 @@
 CC:=gcc
+#声明伪目标 作用是防止和当前目录下的文件名冲突
+.PHONY: named_fifo named_fifo_clean
 
 system_test: system_test.c
 	-$(CC) -o $@ $^
@@ -50,3 +52,17 @@ errno_test: errno_test.c
 	-$(CC) -o $@ $^
 	-./$@
 	-rm ./$@
+
+unnamed_pipe_test: unnamed_pipe_test.c
+	-$(CC) -o $@ $<
+	-./$@ "test"
+	-rm ./$@
+
+fifo_write: fifo_write.c
+	-$(CC) -o $@ $<
+fifo_read: fifo_read.c
+	-$(CC) -o $@ $<
+named_fifo: fifo_write fifo_read
+
+named_fifo_clean:
+	-rm ./fifo_write ./fifo_read
