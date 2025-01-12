@@ -52,5 +52,9 @@ int main(int argc, char *argv[])
     printf("发送管道退出，进程终止\n");
     close(fd);  // 关闭文件描述符
 
+    if (unlink(pipe_path) == -1)  // 删除管道
+    {
+        perror("unlink error");
+    }
     return 0;
 }

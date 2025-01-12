@@ -66,3 +66,11 @@ named_fifo: fifo_write fifo_read
 
 named_fifo_clean:
 	-rm ./fifo_write ./fifo_read
+shared_memory: shared_memory.c
+	-$(CC) -o $@ $^
+	-./$@
+	-rm ./$@
+shared_memory_block: shared_memory_block.c
+	-$(CC) -o $@ $^
+	-./$@
+	-rm ./$@
