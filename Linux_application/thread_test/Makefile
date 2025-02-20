@@ -16,3 +16,11 @@ pthread_cancel_deferred_test: pthread_cancel_deferred_test.c
 	-$(CC) -o $@ $^
 	-./$@
 	-rm ./$@
+pthread_cancel_async_test: pthread_cancel_async_test.c
+	-$(CC) -o $@ $^
+	-./$@
+	-rm ./$@
+pthread_cancel_disabled_test: pthread_cancel_disabled_test.c
+	-$(CC) -o $@ $^
+	-./$@
+	-rm ./$@
