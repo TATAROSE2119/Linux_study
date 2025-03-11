@@ -32,3 +32,15 @@ rwlock_test_writer_unlock: rwlock_test_writer_unlock.c
 	-$(CC) -o $@ $^
 	-./$@
 	-rm ./$@
+rwlock_hungry_solved: rwlock_hungry_solved.c
+	-$(CC) -o $@ $^
+	-./$@
+	-rm ./$@
+restrict_test: restrict_test.c
+	-$(CC) -o $@ $^
+	-./$@
+	-rm ./$@
+condition_var: condition_var.c
+	-$(CC) -o $@ $^
+	-./$@
+	-rm ./$@
