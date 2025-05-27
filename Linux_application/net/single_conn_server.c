@@ -35,7 +35,7 @@ int *read_from_client(void *arg) {
     printf("客户端断开连接\n");
     free(read_buf); // 释放内存
 
-    return 0; // 返回成功
+    return 0;
 }
 int *write_to_client(void *arg) {
     char *write_buf = NULL;
