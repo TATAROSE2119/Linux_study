@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main(int argc,char const argv[]){
+int main(int argc,char const *argv[]){
     printf("192.168.6.101  的16进制表示为:0x%x  0x%x 0x%x 0x%x\n",192,168,6,101);
     //声明结构体接受
     struct sockaddr_in server_addr;
