@@ -19,7 +19,7 @@
 
 
 //线程读写函数
-int read_from_client(void *arg) {
+int *read_from_client(void *arg) {
     char* read_buf=NULL;
     int clientfd = *(int *)arg;
     read_buf = malloc(sizeof(char) * 1024);
@@ -35,9 +35,9 @@ int read_from_client(void *arg) {
     printf("客户端断开连接\n");
     free(read_buf); // 释放内存
 
-    return NULL; // 返回成功
+    return 0; // 返回成功
 }
-int write_to_client(void *arg) {
+int *write_to_client(void *arg) {
     char *write_buf = NULL;
     int clientfd = *(int *)arg;
     write_buf = malloc(sizeof(char) * 1024);
@@ -51,13 +51,14 @@ int write_to_client(void *arg) {
             free(write_buf); // 释放内存
             return -1; // 返回错误
         }
-        printf("接收到控制台的关闭请求\n");
-        //可以具体到关闭某一段
-        shutdown(clientfd, SHUT_RDWR); // 关闭读写
-        free(write_buf); // 释放内存
-        return NULL; // 返回成功
+       
 
     }
+    printf("接收到控制台的关闭请求\n");
+    //可以具体到关闭某一段
+    shutdown(clientfd, SHUT_RDWR); // 关闭读写
+    free(write_buf); // 释放内存
+    return 1; // 返回成功
         
 }
 
@@ -81,18 +82,22 @@ int main(int argc, char const *argv[]){
     server_addr.sin_port = htons(6666); //使用端口6666
 
     //创建套接字
-    int socketfd = socket(AF_INET,SOCK_STREAM,0);
-    hand_error("socket", socketfd);
+    int sockfd = socket(AF_INET,SOCK_STREAM,0);
+    hand_error("socket", sockfd);
     
     //绑定地址
-    temp_result= bind(socketfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
+    temp_result= bind(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
     hand_error("bind", temp_result);
     //开始监听
-    temp_result = listen(socketfd, 1024);
+    temp_result = listen(sockfd, 1024);
     hand_error("listen", temp_result);
     //获取客户端的连接 返回的文件描述符才是和客户端收发消息的文件描述符
+    
     // 注意：accept函数会挂起等待，直到有客户端连接
-    clientfd= accept(socketfd, (struct sockaddr *)&client_addr, (socklen_t *)sizeof(client_addr));
+
+    socklen_t cliaddr_len=sizeof(client_addr);
+
+    clientfd= accept(sockfd, (struct sockaddr *)&client_addr, &cliaddr_len);
     hand_error("accept", clientfd);
 
     printf("客户端%s %d连接成功,文件描述符是: %d\n",
@@ -113,7 +118,7 @@ int main(int argc, char const *argv[]){
     printf("释放资源\n");
     //关闭套接字
     close(clientfd);
-    close(socketfd);
+    close(sockfd);
     printf("服务器退出\n");
 
     return 0;

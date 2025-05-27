@@ -51,13 +51,14 @@ int write_to_server(void *arg) {
             free(write_buf); // 释放内存
             return -1; // 返回错误
         }
-        printf("接收到控制台的关闭请求\n");
-        //可以具体到关闭某一段
-        shutdown(clientfd, SHUT_RDWR); // 关闭读写
-        free(write_buf); // 释放内存
-        return NULL; // 返回成功
+        
 
     }
+    printf("接收到控制台的关闭请求\n");
+    //可以具体到关闭某一段
+    shutdown(clientfd, SHUT_RDWR); // 关闭读写
+    free(write_buf); // 释放内存
+    return NULL; // 返回成功
         
 }
 
